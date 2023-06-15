@@ -3,7 +3,7 @@ variable "vpc_name" {
   default = "Demo-vpc"
 }
 
-variable "vpc_cidr" {
+variable "cidr" {
   type    = string
   default = ""
 }

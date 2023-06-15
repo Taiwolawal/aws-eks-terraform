@@ -2,7 +2,7 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "name" {
+variable "vpc_name" {
   type    = string
   default = "Demo-vpc"
 }
@@ -27,64 +27,35 @@ variable "public_subnets" {
   default = []
 }
 
-variable "create_database_subnet_group" {
-  type    = bool
-  default = false
-}
-
 variable "database_subnets" {
   type    = list(any)
   default = []
 }
 
-variable "database_subnet_group_name" {
-  type    = string
-  default = "demo-db-subnet"
-}
-
-variable "manage_default_route_table" {
+variable "create_database_subnet_group" {
   type    = bool
-  default = true
 }
 
-variable "default_route_table_tags" {
-  type    = map(any)
-  default = {}
-}
-
-variable "manage_default_security_group" {
-  type    = bool
-  default = true
-}
-
-variable "default_security_group_tags" {
-  type    = map(any)
-  default = {}
-}
-
-variable "enable_dns_hostnames" {
-  type    = bool
-  default = false
-}
-
-variable "enable_dns_support" {
-  type    = bool
-  default = true
-}
-
-variable "enable_classiclink_dns_support" {
-  type    = bool
-  default = false
+variable "create_database_subnet_route_table" {
+  description = "VPC Create Database Subnet Route Table"
+  type = bool
 }
 
 variable "enable_nat_gateway" {
-  type    = bool
-  default = false
+  description = "Enable NAT Gateways for Private Subnets Outbound Communication"
+  type = bool
 }
 
 variable "single_nat_gateway" {
   type    = bool
-  default = false
+}
+
+variable "enable_dns_hostnames" {
+  type    = bool
+}
+
+variable "enable_dns_support" {
+  type    = bool
 }
 
 variable "tags" {
