@@ -5,6 +5,9 @@
 *.tfstate
 *.tfstate.*
 
+
+**/.infracost
+
 # Crash log files
 crash.log
 
