@@ -14,6 +14,6 @@ module "VPC" {
     tags = var.tags
 }
 
-# module "EKS" {
+module "EKS" {
   
-# }
+}
