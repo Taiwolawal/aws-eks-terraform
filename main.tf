@@ -1,6 +1,7 @@
 module "VPC" {
     source = "./modules/vpc"
     cidr = var.cidr
+    region = var.region
     private_subnets = var.private_subnets
     public_subnets = var.public_subnets
     database_subnets = var.database_subnets
@@ -12,3 +13,7 @@ module "VPC" {
     enable_dns_support = var.enable_dns_support
     tags = var.tags
 }
+
+# module "EKS" {
+  
+# }

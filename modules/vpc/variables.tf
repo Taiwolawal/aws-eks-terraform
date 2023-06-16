@@ -8,9 +8,8 @@ variable "cidr" {
   default = ""
 }
 
-variable "azs" {
-  type    = list(any)
-  default = []
+variable "region" {
+  type    = string
 }
 
 variable "private_subnets" {
