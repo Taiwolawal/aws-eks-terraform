@@ -22,20 +22,6 @@ variable "public_subnets" {
   default = []
 }
 
-variable "database_subnets" {
-  type    = list(any)
-  default = []
-}
-
-variable "create_database_subnet_group" {
-  type    = bool
-}
-
-variable "create_database_subnet_route_table" {
-  description = "VPC Create Database Subnet Route Table"
-  type = bool
-}
-
 variable "enable_nat_gateway" {
   description = "Enable NAT Gateways for Private Subnets Outbound Communication"
   type = bool

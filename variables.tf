@@ -1,3 +1,4 @@
+# VPC VARIABLES
 variable "region" {
   default = "us-east-1"
 }
@@ -27,38 +28,66 @@ variable "public_subnets" {
   default = []
 }
 
-variable "database_subnets" {
-  type    = list(any)
-  default = []
-}
-
-variable "create_database_subnet_group" {
-  type    = bool
-}
-
-variable "create_database_subnet_route_table" {
-  description = "VPC Create Database Subnet Route Table"
-  type = bool
-}
-
 variable "enable_nat_gateway" {
   description = "Enable NAT Gateways for Private Subnets Outbound Communication"
-  type = bool
+  type        = bool
 }
 
 variable "single_nat_gateway" {
-  type    = bool
+  type = bool
 }
 
 variable "enable_dns_hostnames" {
-  type    = bool
+  type = bool
 }
 
 variable "enable_dns_support" {
-  type    = bool
+  type = bool
 }
 
 variable "tags" {
   type    = map(any)
   default = {}
+}
+
+# EKS VARIABLE
+
+variable "cluster_name" {
+  type = string
+}
+
+variable "cluster_version" {
+  type = string
+}
+
+variable "cluster_endpoint_private_access" {
+  type = bool
+}
+
+variable "cluster_endpoint_public_access" {
+  type = bool
+}
+
+variable "cluster_addons" {
+  type = map(any)
+}
+
+variable "subnet_ids" {
+  type = list(string)
+}
+
+variable "enable_irsa" {
+  type = bool
+}
+
+variable "eks_managed_node_group_defaults" {
+  type = map(any)
+}
+
+variable "eks_managed_node_groups" {
+  type = map(any)
+}
+
+variable "manage_aws_auth_configmap" {
+  type = bool
 }

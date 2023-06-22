@@ -9,11 +9,6 @@ module "vpc" {
   private_subnets = var.private_subnets
   public_subnets  = var.public_subnets
 
-  # Database Subnets
-  database_subnets = var.database_subnets
-  create_database_subnet_group = var.create_database_subnet_group
-  create_database_subnet_route_table = var.create_database_subnet_route_table
-
   # VPC DNS Parameters
   enable_nat_gateway = var.enable_nat_gateway
   single_nat_gateway = var.single_nat_gateway
