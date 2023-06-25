@@ -5,7 +5,6 @@ variable "region" {
 
 variable "vpc_name" {
   type    = string
-  default = "Demo-vpc"
 }
 
 variable "cidr" {

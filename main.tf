@@ -12,14 +12,14 @@ module "vpc" {
 }
 
 module "eks" {
-  source = "./modules/eks"
-  # vpc_id                          = module.vpc.vpc_id
+  source                          = "./modules/eks"
   subnet_ids                      = var.subnet_ids
   cluster_name                    = var.cluster_name
   cluster_version                 = var.cluster_version
   cluster_endpoint_private_access = var.cluster_endpoint_private_access
   cluster_endpoint_public_access  = var.cluster_endpoint_public_access
   cluster_addons                  = var.cluster_addons
+  vpc_id                          = data.aws_vpc.demo-vpc.id
   enable_irsa                     = var.enable_irsa
   eks_managed_node_group_defaults = var.eks_managed_node_group_defaults
   eks_managed_node_groups         = var.eks_managed_node_groups

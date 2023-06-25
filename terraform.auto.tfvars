@@ -1,11 +1,13 @@
 ##############
 # VPC Variables
 ###############
-vpc_name        = "eks-vpc"
+vpc_name        = "Demo-vpc"
 cidr            = "10.0.0.0/16"
 region          = "us-east-1"
 private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
 public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
+
+# vpc_id = vpc-0282127e1f79ed93c
 
 enable_nat_gateway = true
 single_nat_gateway = true

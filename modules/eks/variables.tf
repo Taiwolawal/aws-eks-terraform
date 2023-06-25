@@ -6,6 +6,10 @@ variable "cluster_version" {
   type = string
 }
 
+# variable "vpc_id" {
+#   type    = string
+# }
+
 variable "cluster_endpoint_private_access" {
   type = bool
 }
