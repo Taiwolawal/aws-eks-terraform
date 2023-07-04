@@ -13,6 +13,7 @@ We need to define AWS terraform provider and the backend where our statefiles wi
 To set up the cluster we need to ensure we create a VPC from scratch which our EKS cluster will use to deploy our worker nodes. We will be making use of modules to set up VPC and EKS clusters respectively.
 
 **VPC**
+
 ![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/c2054487-e6b2-480b-a8b8-4ca2c9af17f3)
 
 
