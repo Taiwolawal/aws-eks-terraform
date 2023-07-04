@@ -6,3 +6,4 @@ In this project, we will be setting up an EKS cluster using terraform modules. W
 
 We need to define AWS terraform provider and the backend where our statefiles will be stored. Please ensure you create the s3 bucket used for the backend before executing the project. It is expected that the s3 bucket already exists.
 
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/96a55b6e-ec7f-4560-8615-b2f048ec2c7a)
