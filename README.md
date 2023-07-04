@@ -3,6 +3,7 @@
 In this project, we will be setting up an EKS cluster using terraform modules. We need to ensure we have certain things in place.
 - Install Terraform on the local machine. I used v1.5.O for this project
 - Install aws-cli to be able to communicate with AWS. I used aws-cli/2.8.1 version
+- Install kubectl v1.26
 
 We need to define AWS terraform provider and the backend where our statefiles will be stored. Please ensure you create the s3 bucket used for the backend before executing the project. It is expected that the s3 bucket already exists.
 
