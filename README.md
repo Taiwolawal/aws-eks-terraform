@@ -27,3 +27,14 @@ The value for our variables are
 ![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/72ac0032-d6d9-4240-bcea-f5fdef395e2b)
 
 Run `terraform init` to initialize the backend and the modules used for this project
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/e57f9147-6191-457b-9fe2-cb4e258b8e84)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/6b8fe353-9807-4e62-9146-0b6377cc06c9)
+
+I had to resolve a blocker when I tried running `terraform apply`
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/81baf3c7-d02e-4827-a8df-3cee21bb8ebf)
+
+I got an error stating an invalid function argument for node-groups, I had to change the eks version to `18.29.0` to rectify the issue.
+To confirm all our resources got provisioned as planned.
