@@ -38,3 +38,45 @@ I had to resolve a blocker when I tried running `terraform apply`
 
 I got an error stating an invalid function argument for node-groups, I had to change the eks version to `18.29.0` to rectify the issue.
 To confirm all our resources got provisioned as planned.
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/1c9250d7-3f26-47de-a256-10f719ba62c5)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/891b1ead-58bc-4cb5-a9ce-2c2d420d68bc)
+
+Now we should try to communicate with our eks cluster
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/046ea235-18fc-45d7-b71a-c1cd9ab9a185)
+
+We have a working cluster, so we can deploy a container to the cluster
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/e4cbbd14-c2a6-4fe7-bd46-984950b77c1f)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/deef9334-3e85-4028-9ebc-922c04dd255a)
+
+Our containers are deployed properly, hence let's see it on our browser
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/e38a5464-1bb1-4091-878a-c2fa57be1d0d)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/2b694276-2387-4491-8c01-1571e8e700bc)
+
+Now, let's use argocd to see the applications we deployed. We need to install argocd
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/a80e0742-33db-45be-b12a-869ff5b16776)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/92a042c7-a7ea-4a8c-a070-f392784aa417)
+
+We need to get the password, we will use to login into argocd ui.
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/160362e4-8c0b-47e3-8c23-d6b363fa3f20)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/64b13579-25ca-4ee6-8149-f791e9de27ff)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/c14e5de4-20c6-4f35-a617-aaef7055ab5e)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/174c2005-b2ba-4893-8efe-ba71899e9f5e)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/d53c65bb-16dd-47b1-9bdb-10b6f92af960)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/69206033-076e-4cbd-86c0-5d69826358db)
+
+![image](https://github.com/Taiwolawal/aws-eks-terraform/assets/50557587/76e3266d-d5b3-402c-ba64-e5c5d8bbdb6a)
