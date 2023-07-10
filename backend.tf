@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "my-eks-s3-project"
+    bucket = "eks-s3-prod"
     key    = "dev/terraform.tfstate"
     region = "us-east-1"
 

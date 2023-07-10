@@ -90,3 +90,12 @@ variable "eks_managed_node_groups" {
 variable "manage_aws_auth_configmap" {
   type = bool
 }
+
+#####################
+## ECR
+#####################
+
+variable "ecr_repos" {
+  type        = map(any)
+  description = "List of ECR repos and configuration"
+}
