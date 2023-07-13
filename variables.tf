@@ -91,11 +91,16 @@ variable "manage_aws_auth_configmap" {
   type = bool
 }
 
-#####################
-## ECR
-#####################
+variable "role" {
+  type    = string
+}
 
-variable "ecr_repos" {
-  type        = map(any)
-  description = "List of ECR repos and configuration"
+variable "role_binding" {
+  type    = string
+}
+
+variable "namespaces" {
+  type        = list(string)
+  description = "Kubernetes namespaces to create"
+  default     = []
 }

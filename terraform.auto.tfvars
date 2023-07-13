@@ -22,7 +22,7 @@ tags = {
 ################
 # EKS variables
 ################
-cluster_name    = "serversolutions-eks"
+cluster_name    = "eks-prod"
 cluster_version = "1.27"
 
 cluster_endpoint_private_access = true
@@ -57,6 +57,13 @@ eks_managed_node_groups = {
     instance_types = ["t2.medium"]
     capacity_type  = "ON_DEMAND"
   }
+
+  
 }
 
 manage_aws_auth_configmap = true
+
+
+namespaces = [ "dev" ]
+role = "developer-role"
+role_binding = "developer-role-binding"
