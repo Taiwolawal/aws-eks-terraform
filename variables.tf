@@ -4,7 +4,7 @@ variable "region" {
 }
 
 variable "vpc_name" {
-  type    = string
+  type = string
 }
 
 variable "cidr" {
@@ -92,15 +92,15 @@ variable "manage_aws_auth_configmap" {
 }
 
 variable "role" {
-  type    = string
+  type = string
 }
 
 variable "role_binding" {
-  type    = string
+  type = string
 }
 
 variable "namespaces" {
-  type        = list(string)
+  type        = string
   description = "Kubernetes namespaces to create"
-  default     = []
+
 }
