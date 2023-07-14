@@ -15,7 +15,13 @@ module "eks" {
   enable_irsa = var.enable_irsa
 
   # EKS Managed Node Group(s)
-  eks_managed_node_group_defaults = var.eks_managed_node_group_defaults
+  eks_managed_node_group_defaults = {
+    iam_role_additional_policies = {
+      AmazonEBSCSIDriverPolicy        = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+      EKSNodegroupClusterIssuerPolicy = aws_iam_policy.eks_nodegroup_cluster_issuer_policy.arn
+      EKSNodegroupExternalDNSPolicy   = aws_iam_policy.eks_nodegroup_exteral_dns_policy.arn
+    }
+  }
 
   eks_managed_node_groups = var.eks_managed_node_groups
 
@@ -34,7 +40,12 @@ module "eks" {
     },
   ]
 
-    cluster_security_group_additional_rules = {
+  iam_role_additional_policies = {
+  EKSNodegroupClusterIssuerPolicy = aws_iam_policy.eks_nodegroup_cluster_issuer_policy.arn
+  EKSNodegroupExternalDNSPolicy   = aws_iam_policy.eks_nodegroup_exteral_dns_policy.arn
+  }
+
+  cluster_security_group_additional_rules = {
     ingress_cluster_tcp = {
       description = "Allow Access to Security group from anywhere."
       protocol    = "tcp"

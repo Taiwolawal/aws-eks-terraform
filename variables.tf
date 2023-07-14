@@ -71,16 +71,12 @@ variable "cluster_addons" {
   type = map(any)
 }
 
-variable "subnet_ids" {
-  type = list(string)
-}
+# variable "subnet_ids" {
+#   type = list(string)
+# }
 
 variable "enable_irsa" {
   type = bool
-}
-
-variable "eks_managed_node_group_defaults" {
-  type = map(any)
 }
 
 variable "eks_managed_node_groups" {
@@ -103,4 +99,10 @@ variable "namespaces" {
   type        = string
   description = "Kubernetes namespaces to create"
 
+}
+
+variable "security_groups" {
+  type        = any
+  description = "Security groups configuration"
+  sensitive   = false
 }

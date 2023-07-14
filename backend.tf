@@ -4,8 +4,8 @@ terraform {
     key    = "dev/terraform.tfstate"
     region = "us-east-1"
 
-    # # For State Locking
-    # dynamodb_table = "eks-dynamo-prod"
+    # For State Locking
+    dynamodb_table = "eks-dynamo-prod"
 
   }
 }

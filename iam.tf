@@ -33,6 +33,7 @@ module "eks_developer_iam_policy" {
     Statement = [
       {
         Action = [
+          "eks:DescribeCluster",
           "eks:DescribeNodegroup",
           "eks:ListNodegroups",
           "eks:DescribeCluster",
