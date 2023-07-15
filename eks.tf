@@ -17,7 +17,7 @@ module "eks" {
   # EKS Managed Node Group(s)
   eks_managed_node_group_defaults = {
     iam_role_additional_policies = {
-      AmazonEBSCSIDriverPolicy        = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+      ClusterAutoScalerPolicy         = aws_iam_policy.cluster_autoscaler_policy_for_eks.arn
       EKSNodegroupClusterIssuerPolicy = aws_iam_policy.eks_nodegroup_cluster_issuer_policy.arn
       EKSNodegroupExternalDNSPolicy   = aws_iam_policy.eks_nodegroup_exteral_dns_policy.arn
     }
@@ -37,12 +37,15 @@ module "eks" {
       rolearn  = module.eks_developer_iam_role.iam_role_arn
       username = module.eks_developer_iam_role.iam_role_name
       groups   = [kubernetes_role_binding.developers.subject[0].name]
+
+
     },
   ]
 
   iam_role_additional_policies = {
-  EKSNodegroupClusterIssuerPolicy = aws_iam_policy.eks_nodegroup_cluster_issuer_policy.arn
-  EKSNodegroupExternalDNSPolicy   = aws_iam_policy.eks_nodegroup_exteral_dns_policy.arn
+    ClusterAutoScalerPolicy         = aws_iam_policy.cluster_autoscaler_policy_for_eks.arn
+    EKSNodegroupClusterIssuerPolicy = aws_iam_policy.eks_nodegroup_cluster_issuer_policy.arn
+    EKSNodegroupExternalDNSPolicy   = aws_iam_policy.eks_nodegroup_exteral_dns_policy.arn
   }
 
   cluster_security_group_additional_rules = {
@@ -71,21 +74,22 @@ module "eks" {
 }
 
 resource "kubernetes_namespace" "namespaces" {
-
+  for_each = toset(local.namespaces)
   metadata {
-    name = var.namespaces
     labels = {
       managed_by = "terraform"
     }
+
+    name = each.key
   }
-
-
 }
 
 
 resource "kubernetes_role" "developers_role" {
+  for_each = toset(var.developer_usernames)
   metadata {
-    name = var.role
+    name      = "${each.key}-role"
+    namespace = each.key
     labels = {
       managed_by = "terraform"
     }
@@ -107,18 +111,19 @@ resource "kubernetes_role" "developers_role" {
 }
 
 resource "kubernetes_role_binding" "developers" {
+  for_each = toset(var.developer_usernames)
   metadata {
-    name      = var.role_binding
-    namespace = var.namespaces
+    name      = "${each.key}-role-binding"
+    namespace = each.key
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "Role"
-    name      = var.role
+    name      = "${each.key}-role"
   }
   subject {
     kind      = "Group"
-    name      = "eks-developer-group"
+    name      = "developers:${each.key}"
     api_group = "rbac.authorization.k8s.io"
   }
   depends_on = [

@@ -49,22 +49,22 @@ cluster_security_group_name = var.cluster_name
 
 eks_managed_node_groups = {
   ON_DEMAND = {
-    name = "dev-ng-one"
-      instance_types = ["t3.medium"]
-      capacity_type  = "ON_DEMAND"
-      min_size     = 1
-      max_size     = 2
-      desired_size = 1
-      force_update_version = true
+    name                 = "dev-ng-one"
+    instance_types       = ["t3.medium"]
+    capacity_type        = "ON_DEMAND"
+    min_size             = 1
+    max_size             = 2
+    desired_size         = 1
+    force_update_version = true
   }
 
   SPOT = {
-    name = "dev-ng-two"
-    instance_types = ["t3.medium"]
-    capacity_type  = "SPOT"
-    min_size     = 1
-    max_size     = 2
-    desired_size = 1
+    name                 = "dev-ng-two"
+    instance_types       = ["t3.medium"]
+    capacity_type        = "SPOT"
+    min_size             = 1
+    max_size             = 2
+    desired_size         = 1
     force_update_version = true
   }
 
@@ -73,21 +73,19 @@ eks_managed_node_groups = {
 
 manage_aws_auth_configmap = true
 
-
-namespaces   = "dev"
-role         = "developer-role"
-role_binding = "developer-role-binding"
+namespaces          = ["dev"]
+developer_usernames = ["developer-1"]
 
 security_groups = {
-    eks_worker_node = {
-    name        = "dev-eks-workers"
-    description = "EKS worker node security group"
-    create      = true
-    security_group_id = ""
-    ingress_cidr_blocks      = ["10.0.0.0/16"]
-    egress_cidr_blocks       = ["10.0.0.0/16"]
-    ingress_rules            = [/*"http-80-tcp",*/]
-    egress_rules             = [/*"http-80-tcp",*/]
+  eks_worker_node = {
+    name                = "dev-eks-workers"
+    description         = "EKS worker node security group"
+    create              = true
+    security_group_id   = ""
+    ingress_cidr_blocks = ["10.0.0.0/16"]
+    egress_cidr_blocks  = ["10.0.0.0/16"]
+    ingress_rules       = [/*"http-80-tcp",*/]
+    egress_rules        = [/*"http-80-tcp",*/]
     ingress_with_cidr_blocks = [
       {
         from_port   = 8080

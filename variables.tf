@@ -71,9 +71,6 @@ variable "cluster_addons" {
   type = map(any)
 }
 
-# variable "subnet_ids" {
-#   type = list(string)
-# }
 
 variable "enable_irsa" {
   type = bool
@@ -87,20 +84,16 @@ variable "manage_aws_auth_configmap" {
   type = bool
 }
 
-variable "role" {
-  type = string
-}
-
-variable "role_binding" {
-  type = string
-}
 
 variable "namespaces" {
-  type        = string
+  type        = list(string)
   description = "Kubernetes namespaces to create"
 
 }
 
+variable "developer_usernames" {
+  type = list(string)
+}
 variable "security_groups" {
   type        = any
   description = "Security groups configuration"
