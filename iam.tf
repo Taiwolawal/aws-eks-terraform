@@ -112,7 +112,6 @@ module "developer_user" {
 module "allow_assume_eks_admins_iam_policy" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "5.3.1"
-
   name          = "allow-assume-eks-admin-iam-role"
   create_policy = true
 
@@ -133,7 +132,6 @@ module "allow_assume_eks_admins_iam_policy" {
 module "allow_assume_eks_developer_iam_policy" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "5.3.1"
-
   name          = "allow-assume-eks-developer-iam-role"
   create_policy = true
 

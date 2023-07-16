@@ -86,8 +86,8 @@ variable "manage_aws_auth_configmap" {
 
 
 variable "namespaces" {
-  type        = list(string)
-  description = "Kubernetes namespaces to create"
+  type        = string
+  description = "Kubernetes namespace to create"
 
 }
 

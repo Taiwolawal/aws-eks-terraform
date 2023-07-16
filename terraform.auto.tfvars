@@ -73,7 +73,7 @@ eks_managed_node_groups = {
 
 manage_aws_auth_configmap = true
 
-namespaces          = ["dev"]
+namespaces          = "dev"
 developer_usernames = ["developer-1"]
 
 security_groups = {

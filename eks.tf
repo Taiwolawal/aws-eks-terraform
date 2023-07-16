@@ -24,8 +24,9 @@ module "eks" {
   }
 
   eks_managed_node_groups = var.eks_managed_node_groups
-
   manage_aws_auth_configmap = var.manage_aws_auth_configmap
+
+  aws_auth_users            = concat(local.aws_auth_admins, local.aws_auth_developers)
 
   aws_auth_roles = [
     {
@@ -37,8 +38,6 @@ module "eks" {
       rolearn  = module.eks_developer_iam_role.iam_role_arn
       username = module.eks_developer_iam_role.iam_role_name
       groups   = [kubernetes_role_binding.developers.subject[0].name]
-
-
     },
   ]
 
@@ -73,23 +72,26 @@ module "eks" {
   tags = var.tags
 }
 
+
 resource "kubernetes_namespace" "namespaces" {
-  for_each = toset(local.namespaces)
   metadata {
+    annotations = {
+      name = "example-annotation"
+    }
+
     labels = {
       managed_by = "terraform"
     }
 
-    name = each.key
+    name = var.namespaces
   }
 }
 
 
 resource "kubernetes_role" "developers_role" {
-  for_each = toset(var.developer_usernames)
   metadata {
-    name      = "${each.key}-role"
-    namespace = each.key
+    name      = "developer-role"
+    namespace = var.namespaces
     labels = {
       managed_by = "terraform"
     }
@@ -97,13 +99,13 @@ resource "kubernetes_role" "developers_role" {
 
   rule {
     api_groups = ["*"]
-    resources  = ["nodes", "namespaces", "pods", "events", "services"]
-    verbs      = ["get", "list"]
+    resources  = ["pods", "services"]
+    verbs      = ["get", "list", "create", "delete"]
   }
   rule {
     api_groups = ["apps"]
-    resources  = ["deployments", "daemonsets", "statefulsets", "replicasets"]
-    verbs      = ["get", "list"]
+    resources  = ["deployments", "replicasets"]
+    verbs      = ["get", "list", "create", "delete"]
   }
   depends_on = [
     kubernetes_namespace.namespaces
@@ -111,22 +113,22 @@ resource "kubernetes_role" "developers_role" {
 }
 
 resource "kubernetes_role_binding" "developers" {
-  for_each = toset(var.developer_usernames)
   metadata {
-    name      = "${each.key}-role-binding"
-    namespace = each.key
+    name      = "developer-rolebinding"
+    namespace = var.namespaces
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "Role"
-    name      = "${each.key}-role"
+    name      = kubernetes_role.developers_role.metadata.0.name
   }
   subject {
     kind      = "Group"
-    name      = "developers:${each.key}"
+    name      = "eks-developer-group"
     api_group = "rbac.authorization.k8s.io"
   }
   depends_on = [
-    kubernetes_namespace.namespaces
+    kubernetes_namespace.namespaces,
+    kubernetes_role.developers_role
   ]
 }
