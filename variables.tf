@@ -4,7 +4,7 @@ variable "region" {
 }
 
 variable "vpc_name" {
-  type = string
+  type    = string
 }
 
 variable "cidr" {
@@ -71,9 +71,16 @@ variable "cluster_addons" {
   type = map(any)
 }
 
+variable "subnet_ids" {
+  type = list(string)
+}
 
 variable "enable_irsa" {
   type = bool
+}
+
+variable "eks_managed_node_group_defaults" {
+  type = map(any)
 }
 
 variable "eks_managed_node_groups" {
@@ -82,20 +89,4 @@ variable "eks_managed_node_groups" {
 
 variable "manage_aws_auth_configmap" {
   type = bool
-}
-
-
-variable "namespaces" {
-  type        = string
-  description = "Kubernetes namespace to create"
-
-}
-
-variable "developer_usernames" {
-  type = list(string)
-}
-variable "security_groups" {
-  type        = any
-  description = "Security groups configuration"
-  sensitive   = false
 }
