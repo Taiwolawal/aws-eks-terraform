@@ -7,7 +7,6 @@ region          = "us-east-1"
 private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
 public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
 
-# vpc_id = vpc-0282127e1f79ed93c
 
 enable_nat_gateway = true
 single_nat_gateway = true
@@ -22,7 +21,7 @@ tags = {
 ################
 # EKS variables
 ################
-cluster_name    = "serversolutions-eks"
+cluster_name    = "dev-eks"
 cluster_version = "1.27"
 
 cluster_endpoint_private_access = true
@@ -40,13 +39,13 @@ cluster_addons = {
   }
 }
 
-subnet_ids = ["10.0.1.0/24", "10.0.2.0/24"]
+# subnet_ids = ["10.0.1.0/24", "10.0.2.0/24"]
 
 enable_irsa = true
 
-eks_managed_node_group_defaults = {
-  disk_size = 25
-}
+# eks_managed_node_group_defaults = {
+#   disk_size = 25
+# }
 
 eks_managed_node_groups = {
   dev-eks = {

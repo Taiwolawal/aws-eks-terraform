@@ -4,7 +4,7 @@ variable "region" {
 }
 
 variable "vpc_name" {
-  type    = string
+  type = string
 }
 
 variable "cidr" {
@@ -71,17 +71,17 @@ variable "cluster_addons" {
   type = map(any)
 }
 
-variable "subnet_ids" {
-  type = list(string)
-}
+# variable "subnet_ids" {
+#   type = list(string)
+# }
 
 variable "enable_irsa" {
   type = bool
 }
 
-variable "eks_managed_node_group_defaults" {
-  type = map(any)
-}
+# variable "eks_managed_node_group_defaults" {
+#   type = map(any)
+# }
 
 variable "eks_managed_node_groups" {
   type = map(any)

@@ -1,6 +1,6 @@
 module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "18.29.0"
+  source          = "terraform-aws-modules/eks/aws"
+  version         = "~> 19.0"
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
 
@@ -14,9 +14,19 @@ module "eks" {
 
   enable_irsa = var.enable_irsa
 
+  iam_role_additional_policies = {
+    EKSClusterAutoScalerPolicy      = aws_iam_policy.cluster_autoscaler_policy_for_eks.arn
+    EKSNodegroupClusterIssuerPolicy = aws_iam_policy.eks_nodegroup_cluster_issuer_policy.arn
+    EKSNodegroupExternalDNSPolicy   = aws_iam_policy.eks_nodegroup_exteral_dns_policy.arn
+  }
 
-  # EKS Managed Node Group(s)
-  eks_managed_node_group_defaults = var.eks_managed_node_group_defaults
+  eks_managed_node_group_defaults = {
+    iam_role_additional_policies = {
+      EKSClusterAutoScalerPolicy      = aws_iam_policy.cluster_autoscaler_policy_for_eks.arn
+      EKSNodegroupClusterIssuerPolicy = aws_iam_policy.eks_nodegroup_cluster_issuer_policy.arn
+      EKSNodegroupExternalDNSPolicy   = aws_iam_policy.eks_nodegroup_exteral_dns_policy.arn
+    }
+  }
 
   eks_managed_node_groups = var.eks_managed_node_groups
 
