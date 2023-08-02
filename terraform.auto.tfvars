@@ -39,13 +39,7 @@ cluster_addons = {
   }
 }
 
-# subnet_ids = ["10.0.1.0/24", "10.0.2.0/24"]
-
 enable_irsa = true
-
-# eks_managed_node_group_defaults = {
-#   disk_size = 25
-# }
 
 eks_managed_node_groups = {
   dev-eks = {
@@ -53,8 +47,19 @@ eks_managed_node_groups = {
     max_size     = 2
     desired_size = 1
 
-    instance_types = ["t2.medium"]
+    instance_types = ["t3.medium"]
     capacity_type  = "ON_DEMAND"
+    disk_size      = 35
+  }
+
+  dev-eks-2 = {
+    min_size     = 1
+    max_size     = 2
+    desired_size = 1
+
+    instance_types = ["t3.medium"]
+    capacity_type  = "ON_DEMAND"
+    disk_size      = 35
   }
 }
 
