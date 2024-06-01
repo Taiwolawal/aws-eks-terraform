@@ -71,22 +71,20 @@ variable "cluster_addons" {
   type = map(any)
 }
 
-# variable "subnet_ids" {
-#   type = list(string)
-# }
-
-variable "enable_irsa" {
-  type = bool
+variable "authentication_mode" {
+  type = string
 }
 
-# variable "eks_managed_node_group_defaults" {
-#   type = map(any)
-# }
+
+
+variable "enable_cluster_creator_admin_permissions" {
+  type = bool
+}
 
 variable "eks_managed_node_groups" {
   type = map(any)
 }
 
-variable "manage_aws_auth_configmap" {
-  type = bool
+variable "access_entries" {
+  type = map(any)
 }

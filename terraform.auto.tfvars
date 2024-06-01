@@ -22,7 +22,7 @@ tags = {
 # EKS variables
 ################
 cluster_name    = "dev-eks"
-cluster_version = "1.27"
+cluster_version = "1.29"
 
 cluster_endpoint_private_access = true
 cluster_endpoint_public_access  = true
@@ -39,8 +39,6 @@ cluster_addons = {
   }
 }
 
-enable_irsa = true
-
 eks_managed_node_groups = {
   dev-eks = {
     min_size     = 1
@@ -49,18 +47,29 @@ eks_managed_node_groups = {
 
     instance_types = ["t3.medium"]
     capacity_type  = "ON_DEMAND"
-    disk_size      = 35
   }
 
-  dev-eks-2 = {
-    min_size     = 1
-    max_size     = 2
-    desired_size = 1
-
-    instance_types = ["t3.medium"]
-    capacity_type  = "ON_DEMAND"
-    disk_size      = 35
-  }
 }
 
-manage_aws_auth_configmap = true
+enable_cluster_creator_admin_permissions = true
+
+authentication_mode = "API"
+
+access_entries = {
+    # One access entry with a policy associated
+    example = {
+      kubernetes_groups = []
+      principal_arn     = "arn:aws:iam::123456789012:role/something"
+
+      policy_associations = {
+        example = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+          access_scope = {
+            namespaces = ["default"]
+            type       = "namespace"
+          }
+        }
+      }
+    }
+  }
+
