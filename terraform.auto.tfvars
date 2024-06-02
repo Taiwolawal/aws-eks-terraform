@@ -37,6 +37,10 @@ cluster_addons = {
   vpc-cni = {
     most_recent = true
   }
+
+  eks-pod-identity-agent = {
+    most_recent = true
+  }
 }
 
 eks_managed_node_groups = {
@@ -57,19 +61,34 @@ authentication_mode = "API"
 
 access_entries = {
     # One access entry with a policy associated
-    example = {
-      kubernetes_groups = []
-      principal_arn     = "arn:aws:iam::123456789012:role/something"
+    admin = {
+      kubernetes_groups = ["admin"]
+      principal_arn     = aws_iam_role.eks_admin.arn
 
       policy_associations = {
-        example = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
-          access_scope = {
-            namespaces = ["default"]
-            type       = "namespace"
-          }
+        admin = {
+          policy_arn = aws_iam_policy.eks_assume_admin.arn
+         
         }
       }
     }
+
+    # developers = {
+    #   kubernetes_groups = ["developer"]
+    #   principal_arn     = "module.eks_dev_iam_role.iam_role_arn"
+
+    #   policy_associations = {
+    #     developers = {
+    #       policy_arn = "module.eks.eks_dev_iam_policy.arn"
+    #       access_scope = {
+    #         namespaces = ["developer"]
+    #         type       = "namespace"
+    #       }
+    #     }
+    #   }
+    # } 
   }
+
+  admin_username = "Taiwo"
+  dev_username = "Kenny"
 
