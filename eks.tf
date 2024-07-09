@@ -14,25 +14,57 @@ module "eks" {
 
   eks_managed_node_groups         = var.eks_managed_node_groups
 
-   # Cluster access entry
+  
+  # Cluster access entry
   # To add the current caller identity as an administrator
   enable_cluster_creator_admin_permissions = var.enable_cluster_creator_admin_permissions
 
   authentication_mode = var.authentication_mode
 
-  access_entries = var.access_entries
+  # access_entries = var.access_entries
 
   depends_on = [
-    module.eks_iam_role.custom_role_policy_arns,
-    module.node_iam_role.custom_role_policy_arns
-    # aws_iam_role_policy_attachment.eks,
-    # aws_iam_role_policy_attachment.amazon_eks_worker_node_policy,
-    # aws_iam_role_policy_attachment.amazon_eks_cni_policy,
-    # aws_iam_role_policy_attachment.amazon_ec2_container_registry_read_only,
+    aws_iam_role_policy_attachment.eks,
+    aws_iam_role_policy_attachment.amazon_eks_worker_node_policy,
+    aws_iam_role_policy_attachment.amazon_eks_cni_policy,
+    aws_iam_role_policy_attachment.amazon_ec2_container_registry_read_only
   ]
 
-
   tags = var.tags
+}
+
+resource "aws_eks_access_entry" "admin-user" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = aws_iam_role.eks_admin.arn
+  kubernetes_groups = ["admin"]
+}
+
+resource "aws_eks_access_policy_association" "admin-user-access-policy" {
+  cluster_name  = module.eks.cluster_name
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+  principal_arn = aws_iam_role.eks_admin.arn
+
+  access_scope {
+    type = "cluster" # namespace | cluster
+    # namespaces = ["example-namespace"]
+  }
+}
+
+resource "aws_eks_access_entry" "developer-user" {
+  cluster_name      = module.eks.cluster_name
+  principal_arn     = aws_iam_user.developer.arn
+  kubernetes_groups = ["developer"]
+}
+
+resource "aws_eks_access_policy_association" "developer-user-access-policy" {
+  cluster_name  = module.eks.cluster_name
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+  principal_arn = aws_iam_role.eks_admin.arn
+
+  access_scope {
+    type = "namespace" # namespace | cluster
+    namespaces = ["developer"]
+  }
 }
 
 resource "kubernetes_namespace" "developer" {

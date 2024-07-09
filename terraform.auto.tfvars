@@ -22,26 +22,17 @@ tags = {
 # EKS variables
 ################
 cluster_name    = "dev-eks"
-cluster_version = "1.29"
+cluster_version = "1.30"
 
 cluster_endpoint_private_access = true
 cluster_endpoint_public_access  = true
 
 cluster_addons = {
-  coredns = {
-    most_recent = true
+    coredns                = {}
+    eks-pod-identity-agent = {}
+    kube-proxy             = {}
+    vpc-cni                = {}
   }
-  kube-proxy = {
-    most_recent = true
-  }
-  vpc-cni = {
-    most_recent = true
-  }
-
-  eks-pod-identity-agent = {
-    most_recent = true
-  }
-}
 
 eks_managed_node_groups = {
   dev-eks = {
@@ -59,36 +50,22 @@ enable_cluster_creator_admin_permissions = true
 
 authentication_mode = "API"
 
-access_entries = {
-    # One access entry with a policy associated
-    admin = {
-      kubernetes_groups = ["admin"]
-      principal_arn     = aws_iam_role.eks_admin.arn
+# access_entries = {
 
-      policy_associations = {
-        admin = {
-          policy_arn = aws_iam_policy.eks_assume_admin.arn
-         
-        }
-      }
-    }
+#     admin = {
+#       # authentication_mode = "API"
+#       kubernetes_groups = ["my-admin"]
+#       principal_arn     = "aws_iam_role.eks_admin.arn"
 
-    # developers = {
-    #   kubernetes_groups = ["developer"]
-    #   principal_arn     = "module.eks_dev_iam_role.iam_role_arn"
+#       policy_associations = {
+#         admin = {
+#           policy_arn = "aws_iam_policy.eks_admin.arn"
+#           access_scope = {
+#             type       = "cluster"
+#           }
+#         }
+#       }
+#     } 
+# }
 
-    #   policy_associations = {
-    #     developers = {
-    #       policy_arn = "module.eks.eks_dev_iam_policy.arn"
-    #       access_scope = {
-    #         namespaces = ["developer"]
-    #         type       = "namespace"
-    #       }
-    #     }
-    #   }
-    # } 
-  }
-
-  admin_username = "Taiwo"
-  dev_username = "Kenny"
 

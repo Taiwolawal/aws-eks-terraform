@@ -85,14 +85,16 @@ variable "eks_managed_node_groups" {
   type = map(any)
 }
 
-variable "access_entries" {
-  type = map(any)
-}
+# variable "access_entries" {
+#   type = map(any)
+# }
 
-variable "admin_username" {
-  type = string
-}
+# variable "admin_username" {
+#   type = string
+# }
 
-variable "dev_username" {
-  type = string
-}
+# variable "dev_username" {
+#   type = string
+# }
+
+
