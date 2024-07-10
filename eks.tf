@@ -39,16 +39,22 @@ resource "aws_eks_access_entry" "admin-user" {
   kubernetes_groups = ["admin"]
 }
 
-resource "aws_eks_access_policy_association" "admin-user-access-policy" {
-  cluster_name  = module.eks.cluster_name
-  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
-  principal_arn = aws_iam_role.eks_admin.arn
+/*
+Associate an access policy to the above access entry.
+If none of the access policies meet your requirements, then don't associate an access policy to an access entry. 
+Instead, specify Kubernetes group name(s) for the access entry within the "aws_eks_access_entry" resource block.
+*/
 
-  access_scope {
-    type = "cluster" # namespace | cluster
-    # namespaces = ["example-namespace"]
-  }
-}
+# resource "aws_eks_access_policy_association" "admin-user-access-policy" {
+#   cluster_name  = module.eks.cluster_name
+#   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+#   principal_arn = aws_iam_role.eks_admin.arn
+
+#   access_scope {
+#     type = "cluster" # namespace | cluster
+#     # namespaces = ["example-namespace"]
+#   }
+# }
 
 resource "aws_eks_access_entry" "developer-user" {
   cluster_name      = module.eks.cluster_name
@@ -56,16 +62,16 @@ resource "aws_eks_access_entry" "developer-user" {
   kubernetes_groups = ["developer"]
 }
 
-resource "aws_eks_access_policy_association" "developer-user-access-policy" {
-  cluster_name  = module.eks.cluster_name
-  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
-  principal_arn = aws_iam_role.eks_admin.arn
+# resource "aws_eks_access_policy_association" "developer-user-access-policy" {
+#   cluster_name  = module.eks.cluster_name
+#   policy_arn    = aws_iam_policy.eks_assume_admin.arn
+#   principal_arn = aws_iam_role.eks_admin.arn
 
-  access_scope {
-    type = "namespace" # namespace | cluster
-    namespaces = ["developer"]
-  }
-}
+#   access_scope {
+#     type = "namespace" # namespace | cluster
+#     namespaces = ["developer"]
+#   }
+# }
 
 resource "kubernetes_namespace" "developer" {
   metadata {
